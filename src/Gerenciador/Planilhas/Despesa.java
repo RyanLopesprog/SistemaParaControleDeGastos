@@ -1,6 +1,6 @@
 package Gerenciador.Planilhas;
 
-public class Despesas {
+public class Despesa {
 	
 	private int id_despesa;
 	private int id_usuario;
@@ -9,7 +9,7 @@ public class Despesas {
 	private String valor_despesa;
 	private String tipo_despesa;
 	
-	public Despesas(int id_despesa, int id_usuario, String data_despesa, String nome_despesa, String valor_despesa, String tipo_despesa) {
+	public Despesa(int id_despesa, int id_usuario, String data_despesa, String nome_despesa, String valor_despesa, String tipo_despesa) {
 		
 		this.id_despesa = id_despesa;
 		this.id_usuario = id_usuario;
@@ -68,6 +68,15 @@ public class Despesas {
 		this.tipo_despesa = tipo_despesa;
 	}
 	
-	
+	public String toString() {
+        return "Despesas{" +
+                "id_despesa=" + id_despesa +
+                ", id_usuario='" + id_usuario + '\'' +
+                ", data_despesa='" + data_despesa + '\'' +
+                ", nome_despesa='" + nome_despesa + '\'' +
+                ", valor_despesa=" + valor_despesa +
+                ", tipo_despesa=" + tipo_despesa +
+                '}';
+    }
 	
 }

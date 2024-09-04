@@ -1,6 +1,6 @@
 package Gerenciador.Planilhas;
 
-public class Receitas {
+public class Receita {
 
 	private int id_receita;
 	private int id_usuario;
@@ -9,7 +9,7 @@ public class Receitas {
 	private String valor_receita;
 	private String tipo_receita;
 	
-	public Receitas(int id_receita, int id_usuario, String data_receita, String nome_receita, String valor_receita, String tipo_receita) {
+	public Receita(int id_receita, int id_usuario, String data_receita, String nome_receita, String valor_receita, String tipo_receita) {
 		
 		this.id_receita = id_receita;
 		this.id_usuario = id_usuario;
@@ -68,6 +68,15 @@ public class Receitas {
 		this.tipo_receita = tipo_receita;
 	}
 
+	public String toString() {
+        return "Receitas{" +
+                "id_receita=" + id_receita +
+                ", id_usuario='" + id_usuario + '\'' +
+                ", data_receita='" + data_receita + '\'' +
+                ", valor_receita=" + valor_receita +
+                ", tipo_receita=" + tipo_receita +
+                '}';
+    }
 	
 	
 }

@@ -17,6 +17,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class TelaReceita extends JFrame {
 
@@ -63,47 +65,47 @@ public class TelaReceita extends JFrame {
 		contentPane.add(lbl_gestao_receita);
 		
 		JLabel lbl_nome_receita = new JLabel("Nome:");
-		lbl_nome_receita.setBounds(31, 132, 59, 27);
+		lbl_nome_receita.setBounds(31, 68, 59, 27);
 		lbl_nome_receita.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 18));
 		contentPane.add(lbl_nome_receita);
 		
 		txt_nome_receita = new JTextField();
-		txt_nome_receita.setBounds(104, 138, 108, 19);
+		txt_nome_receita.setBounds(104, 74, 108, 19);
 		contentPane.add(txt_nome_receita);
 		txt_nome_receita.setColumns(10);
 		
 		JLabel lbl_data_receita = new JLabel("Data:");
-		lbl_data_receita.setBounds(31, 180, 59, 19);
+		lbl_data_receita.setBounds(31, 116, 59, 19);
 		lbl_data_receita.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 18));
 		contentPane.add(lbl_data_receita);
 		
 		txt_data_receita = new JTextField();
-		txt_data_receita.setBounds(104, 182, 108, 19);
+		txt_data_receita.setBounds(104, 118, 108, 19);
 		contentPane.add(txt_data_receita);
 		txt_data_receita.setColumns(10);
 		
 		JLabel lbl_valor_receita = new JLabel("Valor: ");
-		lbl_valor_receita.setBounds(31, 226, 59, 13);
+		lbl_valor_receita.setBounds(31, 162, 59, 13);
 		lbl_valor_receita.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 18));
 		contentPane.add(lbl_valor_receita);
 		
 		txt_valor_receita = new JTextField();
-		txt_valor_receita.setBounds(104, 225, 108, 19);
+		txt_valor_receita.setBounds(104, 161, 108, 19);
 		contentPane.add(txt_valor_receita);
 		txt_valor_receita.setColumns(10);
 		
 		JLabel lbl_tipo_receita = new JLabel("Tipo: ");
-		lbl_tipo_receita.setBounds(31, 268, 59, 18);
+		lbl_tipo_receita.setBounds(31, 204, 59, 18);
 		lbl_tipo_receita.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 18));
 		contentPane.add(lbl_tipo_receita);
 		
 		txt_tipo_receita = new JTextField();
-		txt_tipo_receita.setBounds(104, 267, 108, 19);
+		txt_tipo_receita.setBounds(104, 203, 108, 19);
 		contentPane.add(txt_tipo_receita);
 		txt_tipo_receita.setColumns(10);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(31, 327, 300, 120);
+		panel.setBounds(31, 344, 300, 120);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -144,7 +146,7 @@ public class TelaReceita extends JFrame {
 		panel.add(btn_sair);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(426, 76, 348, 424);
+		scrollPane.setBounds(383, 76, 391, 424);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
@@ -156,5 +158,29 @@ public class TelaReceita extends JFrame {
 			}
 		));
 		scrollPane.setViewportView(table);
+		
+		JLabel lbl_mes_ano_receita = new JLabel("Selecione o Mês/Ano Desejado");
+		lbl_mes_ano_receita.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 15));
+		lbl_mes_ano_receita.setBounds(31, 233, 210, 23);
+		contentPane.add(lbl_mes_ano_receita);
+		
+		JComboBox comboBox_meses_receita = new JComboBox();
+		comboBox_meses_receita.setModel(new DefaultComboBoxModel(new String[] {"JANEIRO", "FEVEREIRO", "MARÇO", "ABRIL", "MAIO", "JUNHO", "JULHO", "AGOSTO", "SETEMBRO", "OUTUBRO", "NOVEMBRO ", "DEZEMBO"}));
+		comboBox_meses_receita.setToolTipText("");
+		comboBox_meses_receita.setMaximumRowCount(12);
+		comboBox_meses_receita.setBounds(31, 267, 111, 27);
+		contentPane.add(comboBox_meses_receita);
+		
+		JComboBox comboBox_anos_receita = new JComboBox();
+		comboBox_anos_receita.setToolTipText("");
+		comboBox_anos_receita.setModel(new DefaultComboBoxModel(new String[] {"2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034", "2035", "2036", "2037", "2038", "2039", "2040"}));
+		comboBox_anos_receita.setSelectedIndex(20);
+		comboBox_anos_receita.setMaximumRowCount(12);
+		comboBox_anos_receita.setBounds(152, 267, 92, 27);
+		contentPane.add(comboBox_anos_receita);
+		
+		JButton btn_buscar_receita = new JButton("Buscar");
+		btn_buscar_receita.setBounds(69, 305, 122, 19);
+		contentPane.add(btn_buscar_receita);
 	}
 }

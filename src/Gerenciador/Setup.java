@@ -14,7 +14,7 @@ public class Setup {
         // Criar conexão com o banco. Dicas: Connection, Drivermanager.getConnection
         String url = "jdbc:mysql://localhost:3306/";
         String user = "root";
-        String password = "L0p3s09@";
+        String password = "Aluno";
 
         Connection conexaoBanco = DriverManager.getConnection(url, user, password);
 
@@ -33,8 +33,10 @@ public class Setup {
         String createTableusuarios = "CREATE TABLE usuarios ("
                 + "id_usuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY, "
                 + "nome_usuario VARCHAR(255) NOT NULL, "
-                + "cpf_user CHAR(11) NOT NULL UNIQUE, "
-                + "CONSTRAINT check_tamanho_cpf CHECK (LENGTH(cpf_user) = 11)"
+                + "cpf_usuario CHAR(11) NOT NULL UNIQUE, "
+                + "usuario_login VARCHAR(255) NOT NULL, "
+                + "senha_login VARCHAR(255) NOT NULL, "
+                + "CONSTRAINT check_tamanho_cpf CHECK (LENGTH(cpf_usuario) = 11)"
                  + ");";
         
         String createTabledespesas = "CREATE TABLE despesas ("

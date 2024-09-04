@@ -5,6 +5,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Gerenciador.Conexao;
+import Gerenciador.Planilhas.Usuario;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
@@ -13,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class TelaInicio extends JFrame {
+	static Conexao con = new Conexao("jdbc:mysql://localhost:3306/controlefinanceiro", "root", "Aluno");
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -80,6 +85,13 @@ public class TelaInicio extends JFrame {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
+//							Usuarios login = Conexao.buscarUsuarioPorUserName(textField.getText())
+//							if(login && textField_1.getText().equals(login.getSenha())) {
+//							System.out.println("Acesso concedido");
+//							}else {
+//								System.out.println("Acesso negado");
+//							}
+							
 							TelaPrincipal frame = new TelaPrincipal();
 							frame.setVisible(true);
 						} catch (Exception e) {

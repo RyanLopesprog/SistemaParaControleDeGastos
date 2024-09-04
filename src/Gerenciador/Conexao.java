@@ -2,6 +2,9 @@ package Gerenciador;
 
 import java.sql.*;
 
+import Gerenciador.Planilhas.Usuario;
+
+
 public class Conexao {
 	
 	private String url;
@@ -69,10 +72,10 @@ public class Conexao {
 
         try {
             st = con.createStatement();
-            rs = st.executeQuery("Select * FROM paciente");
+            rs = st.executeQuery("Select * FROM controlefinanceiro");
             while (rs.next()) {
             
-            System.out.println(rs.getInt(1)+". "+rs.getString(2));
+            System.out.println(rs.getInt(0)+". "+rs.getString(1));
             }
 
         } catch (SQLException e) {
@@ -88,6 +91,47 @@ public class Conexao {
         
         conexaoBanco.verTabelacontrolefinanceiro();
     }
+    
+public void inserirNovoUsuario(Usuario usuario){
+	conectar();
+        
+        try {
+            pst = con.prepareStatement("INSERT INTO usuario VALUES (DEFAULT, ?, ?, ?, ?)");
+            pst.setString(1, usuario.getNome_usuario());
+            pst.setString(2, usuario.getCpf_usuario());
+            pst.setString(3, usuario.getUsuario_login());
+            pst.setString(4, usuario.getSenha_login());
+
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        desconectar();
+    }
+
+public Usuario buscarUsuarioPorNome(String Nome_usuario){
+    Usuario usuario = null;
+    conectar();
+    try {
+        pst = con.prepareStatement("SELECT * FROM controlefinancerio WHERE nome_usuario = ?");
+        pst.setString(1, Nome_usuario);
+        rs = pst.executeQuery();
+
+        if (rs.next()){
+            usuario = new Usuario(0, Nome_usuario, Nome_usuario, Nome_usuario, Nome_usuario);
+            usuario.setId_usuario(rs.getInt(0));
+            usuario.setNome_usuario(rs.getString(1));
+            usuario.setCpf_usuario(rs.getString(2));
+            usuario.setUsuario_login(rs.getString(4));
+            usuario.setSenha_login(rs.getString(5));
+        }
+        
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+    }
+    desconectar();
+    return usuario;
+}
 
 }
 

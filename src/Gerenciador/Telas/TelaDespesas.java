@@ -52,7 +52,7 @@ public class TelaDespesas extends JFrame {
 	public TelaDespesas() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 550);
+		setBounds(100, 100, 888, 550);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -149,25 +149,25 @@ public class TelaDespesas extends JFrame {
 		comboBox_meses_despesas.setModel(new DefaultComboBoxModel(new String[] {"JANEIRO", "FEVEREIRO", "MARÇO", "ABRIL", "MAIO", "JUNHO", "JULHO", "AGOSTO", "SETEMBRO", "OUTUBRO", "NOVEMBRO ", "DEZEMBO"}));
 		comboBox_meses_despesas.setToolTipText("");
 		comboBox_meses_despesas.setMaximumRowCount(12);
-		comboBox_meses_despesas.setBounds(33, 280, 111, 27);
+		comboBox_meses_despesas.setBounds(31, 259, 111, 27);
 		contentPane.add(comboBox_meses_despesas);
 		
-		JLabel lblNewLabel = new JLabel("Selecione o Mês/Ano Desejado");
-		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 15));
-		lblNewLabel.setBounds(33, 246, 210, 23);
-		contentPane.add(lblNewLabel);
+		JLabel lbl_mes_ano_despesas = new JLabel("Selecione o Mês/Ano Desejado");
+		lbl_mes_ano_despesas.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 15));
+		lbl_mes_ano_despesas.setBounds(31, 225, 210, 23);
+		contentPane.add(lbl_mes_ano_despesas);
 		
 		JComboBox comboBox_anos_despesas = new JComboBox();
 		comboBox_anos_despesas.setModel(new DefaultComboBoxModel(new String[] {"2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034", "2035", "2036", "2037", "2038", "2039", "2040"}));
 		comboBox_anos_despesas.setSelectedIndex(20);
 		comboBox_anos_despesas.setToolTipText("");
 		comboBox_anos_despesas.setMaximumRowCount(12);
-		comboBox_anos_despesas.setBounds(154, 280, 92, 27);
+		comboBox_anos_despesas.setBounds(152, 259, 92, 27);
 		contentPane.add(comboBox_anos_despesas);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(358, 60, 416, 440);
-		contentPane.add(scrollPane);
+		JScrollPane scrollPane_tabela = new JScrollPane();
+		scrollPane_tabela.setBounds(299, 60, 539, 440);
+		contentPane.add(scrollPane_tabela);
 		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
@@ -177,6 +177,10 @@ public class TelaDespesas extends JFrame {
 				"id_despesa", "id_usuario", "data_despesa", "nome_despesa", "valor_despesa", "tipo_despesa"
 			}
 		));
-		scrollPane.setViewportView(table);
+		scrollPane_tabela.setViewportView(table);
+		
+		JButton btn_buscar_despesas = new JButton("Buscar");
+		btn_buscar_despesas.setBounds(69, 297, 122, 19);
+		contentPane.add(btn_buscar_despesas);
 	}
 }
