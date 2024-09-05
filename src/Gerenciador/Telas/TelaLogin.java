@@ -16,7 +16,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class TelaInicio extends JFrame {
+public class TelaLogin extends JFrame {
 	static Conexao con = new Conexao("jdbc:mysql://localhost:3306/controlefinanceiro", "root", "Aluno");
 
 	private static final long serialVersionUID = 1L;
@@ -31,8 +31,8 @@ public class TelaInicio extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaInicio inicio = new TelaInicio();
-					inicio.setVisible(true);
+					TelaLogin telalogin = new TelaLogin();
+					telalogin.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -43,7 +43,7 @@ public class TelaInicio extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaInicio() {
+	public TelaLogin() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -82,23 +82,9 @@ public class TelaInicio extends JFrame {
 		btn_login_inicio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {
-//							Usuarios login = Conexao.buscarUsuarioPorUserName(textField.getText())
-//							if(login && textField_1.getText().equals(login.getSenha())) {
-//							System.out.println("Acesso concedido");
-//							}else {
-//								System.out.println("Acesso negado");
-//							}
-							
-							TelaPrincipal frame = new TelaPrincipal();
-							frame.setVisible(true);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				});
+				TelaPrincipal telaPrincipal = new TelaPrincipal();
+				telaPrincipal.setVisible(true);
+						
 				dispose();
 			}
 		});
@@ -109,17 +95,8 @@ public class TelaInicio extends JFrame {
 		JButton btn_cadastro_inicio = new JButton("Cadastro");
 		btn_cadastro_inicio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {
-							TelaCadastro telacadastro = new TelaCadastro();
-							telacadastro.setVisible(true);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				});
+				TelaCadastro telacadastro = new TelaCadastro();
+				telacadastro.setVisible(true);
 				dispose();
 			}
 		});

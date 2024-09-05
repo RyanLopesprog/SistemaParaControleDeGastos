@@ -97,17 +97,8 @@ public class TelaCadastro extends JFrame {
 		JButton btn_inicio_cadastro = new JButton("Inicio");
 		btn_inicio_cadastro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					EventQueue.invokeLater(new Runnable() {
-						public void run() {
-							try {
-								TelaInicio inicio = new TelaInicio();
-								inicio.setVisible(true);
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						}
-					
-					});
+				TelaLogin telaLogin = new TelaLogin();
+				telalogin.setVisible(true);
 					dispose();
 			}
 		});
