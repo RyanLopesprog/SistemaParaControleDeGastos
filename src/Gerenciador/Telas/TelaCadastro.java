@@ -98,7 +98,7 @@ public class TelaCadastro extends JFrame {
 		btn_inicio_cadastro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaLogin telaLogin = new TelaLogin();
-				telalogin.setVisible(true);
+				telaLogin.setVisible(true);
 					dispose();
 			}
 		});
