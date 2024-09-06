@@ -1,7 +1,11 @@
 package Gerenciador;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
+import Gerenciador.Planilhas.Despesa;
+import Gerenciador.Planilhas.Receita;
 import Gerenciador.Planilhas.Usuario;
 
 
@@ -132,6 +136,93 @@ public Usuario buscarUsuarioPorNome(String Nome_usuario){
     desconectar();
     return usuario;
 }
+
+public List<Despesa> buscarTodasDespesas() {
+	List<Despesa> despesas = new ArrayList<Despesa>();
+	conectar();
+	
+	try {
+		// SELECT * FROM usuarios
+		st = con.createStatement();
+		
+		rs = st.executeQuery("SELECT * FROM despesas");
+		
+		while(rs.next()) {
+			Despesa despesa = new Despesa(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
+			
+			despesas.add(despesa);
+		}
+		
+		
+	} catch (SQLException e) {
+		System.err.println(e.getMessage());
+	}
+	
+	desconectar();
+	return despesas;
+}
+
+public List<Receita> buscarTodasReceitas() {
+    List<Receita> receitas = new ArrayList<Receita>();
+    conectar();
+
+    try {
+        // SELECT * FROM receitas
+        st = con.createStatement();
+
+        rs = st.executeQuery("SELECT * FROM receitas");
+
+        while(rs.next()) {
+            Receita receita = new Receita(
+                rs.getInt(1),       // id_receita
+                rs.getInt(2),       // id_usuario
+                rs.getString(3),   // data_receita
+                rs.getString(4),   // nome_receita
+                rs.getString(5) // valor_receita   
+            );
+
+            receitas.add(receita);
+        }
+
+    } catch (SQLException e) {
+        System.err.println(e.getMessage());
+    }
+
+    desconectar();
+    return receitas;
+}
+
+public List<Usuario> buscarTodosUsuarios() {
+    List<Usuario> usuarios = new ArrayList<Usuario>();
+    conectar();
+
+    try {
+        // SELECT * FROM usuarios
+        st = con.createStatement();
+
+        rs = st.executeQuery("SELECT * FROM usuarios");
+
+        while(rs.next()) {
+            Usuario usuario = new Usuario(
+                rs.getInt(1),         // id_usuario
+                rs.getString(2),      // nome_usuario
+                rs.getString(3),      // cpf_usuario
+                rs.getString(4),      // usuario_login
+                rs.getString(5)       // senha_login
+            );
+
+            usuarios.add(usuario);
+        }
+
+    } catch (SQLException e) {
+        System.err.println(e.getMessage());
+    }
+
+    desconectar();
+    return usuarios;
+}
+
+
 
 }
 

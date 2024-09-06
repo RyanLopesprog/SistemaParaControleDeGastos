@@ -17,10 +17,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+
+import Gerenciador.Planilhas.Receita;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
 public class TelaReceita extends JFrame {
+	static Gerenciador.Conexao con = new Gerenciador.Conexao("jdbc:mysql://localhost:3306/controlefinanceiro", "root", "Aluno");
+
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -52,7 +57,7 @@ public class TelaReceita extends JFrame {
 	public TelaReceita() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 550);
+		setBounds(100, 100, 936, 550);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -146,17 +151,31 @@ public class TelaReceita extends JFrame {
 		panel.add(btn_sair);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(383, 76, 391, 424);
+		scrollPane.setBounds(383, 76, 512, 424);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"id_receita", "id_usuario", "data_receita", "nome_receita", "valor_receita"
-			}
-		));
+		String[] listaColunas = { "ID Receita", "Nome", "Data", "Receita", "Valor"};
+		DefaultTableModel modelo = new DefaultTableModel(
+		    new Object[][] {
+		    },
+		    listaColunas
+		);
+
+		java.util.List<Receita> receitas = con.buscarTodasReceitas();
+		for (Receita r : receitas) {
+		    String[] infoReceita = {
+		        Integer.toString(r.getId_receita()),
+		        Integer.toString(r.getId_usuario()),
+		        r.getData_receita(),
+		        r.getNome_receita(),
+		        r.getValor_receita()
+		    };
+
+		    modelo.addRow(infoReceita);
+		}
+		table.setModel(modelo)
+		 ;
 		scrollPane.setViewportView(table);
 		
 		JLabel lbl_mes_ano_receita = new JLabel("Selecione o Mês/Ano Desejado");
@@ -174,7 +193,7 @@ public class TelaReceita extends JFrame {
 		JComboBox comboBox_anos_receita = new JComboBox();
 		comboBox_anos_receita.setToolTipText("");
 		comboBox_anos_receita.setModel(new DefaultComboBoxModel(new String[] {"2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034", "2035", "2036", "2037", "2038", "2039", "2040"}));
-		comboBox_anos_receita.setSelectedIndex(20);
+		comboBox_anos_receita.setSelectedIndex(0);
 		comboBox_anos_receita.setMaximumRowCount(12);
 		comboBox_anos_receita.setBounds(152, 267, 92, 27);
 		contentPane.add(comboBox_anos_receita);
@@ -183,4 +202,5 @@ public class TelaReceita extends JFrame {
 		btn_buscar_receita.setBounds(69, 305, 122, 19);
 		contentPane.add(btn_buscar_receita);
 	}
+	
 }

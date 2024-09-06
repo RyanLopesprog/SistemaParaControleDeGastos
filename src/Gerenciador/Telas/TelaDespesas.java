@@ -20,7 +20,13 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
+
+import Gerenciador.Planilhas.Despesa;
+
+
+
 public class TelaDespesas extends JFrame {
+	static Gerenciador.Conexao con = new Gerenciador.Conexao("jdbc:mysql://localhost:3306/controlefinanceiro", "root", "Aluno");
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -159,7 +165,7 @@ public class TelaDespesas extends JFrame {
 		
 		JComboBox comboBox_anos_despesas = new JComboBox();
 		comboBox_anos_despesas.setModel(new DefaultComboBoxModel(new String[] {"2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034", "2035", "2036", "2037", "2038", "2039", "2040"}));
-		comboBox_anos_despesas.setSelectedIndex(20);
+		comboBox_anos_despesas.setSelectedIndex(0);
 		comboBox_anos_despesas.setToolTipText("");
 		comboBox_anos_despesas.setMaximumRowCount(12);
 		comboBox_anos_despesas.setBounds(152, 259, 92, 27);
@@ -170,13 +176,23 @@ public class TelaDespesas extends JFrame {
 		contentPane.add(scrollPane_tabela);
 		
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"id_despesa", "id_usuario", "data_despesa", "nome_despesa", "valor_despesa", "tipo_despesa"
-			}
-		));
+		String[] listaColunas = { "ID Despesa", "Nome", "Data", "Despesa", "Valor", "Tipo" };
+		DefaultTableModel modelo = new  DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+					"id_despesa", "id_usuario", "data_despesa", "nome_despesa", "valor_despesa", "tipo_despesa"
+				}
+			);
+		java.util.List<Despesa> despesas = con.buscarTodasDespesas();
+		 for (Despesa d : despesas){
+             String[] infoDespesa = {Integer.toString(d.getId_despesa()), Integer.toString(d.getId_usuario()), d.getData_despesa(), d.getNome_despesa(), d.getValor_despesa(), d.getTipo_despesa()
+            		 };
+             
+             modelo.addRow(infoDespesa);
+         }
+		
+		table.setModel( modelo );
 		scrollPane_tabela.setViewportView(table);
 		
 		JButton btn_buscar_despesas = new JButton("Buscar");
