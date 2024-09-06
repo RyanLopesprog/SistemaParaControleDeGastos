@@ -223,6 +223,28 @@ public List<Usuario> buscarTodosUsuarios() {
 }
 
 
+public void inserirNovaReceita(Receita receita) {
+    conectar();
+    
+    try {
+        // Prepara o comando SQL para inserir uma nova receita
+        pst = con.prepareStatement("INSERT INTO receitas (id_usuario, data_receita, nome_receita, valor_receita) VALUES (?, ?, ?, ?)");
+        
+        pst.setInt(1, receita.getId_usuario());
+        pst.setString(2, receita.getData_receita()); // Assumindo que data_receita é um String no formato 'YYYY-MM-DD'
+        pst.setString(3, receita.getNome_receita());
+        pst.setString(4, receita.getValor_receita());
+
+        // Executa o comando SQL
+        pst.executeUpdate();
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+    }
+    
+    desconectar();
+}
+
+
 
 }
 

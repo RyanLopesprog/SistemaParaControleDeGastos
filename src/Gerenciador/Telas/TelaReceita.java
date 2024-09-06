@@ -17,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import Gerenciador.Planilhas.Receita;
 
@@ -33,7 +34,7 @@ public class TelaReceita extends JFrame {
 	private JTextField txt_data_receita;
 	private JTextField txt_valor_receita;
 	private JTextField txt_tipo_receita;
-	private JTable table;
+	private JTable table_receita;
 
 	/**
 	 * Launch the application.
@@ -114,7 +115,66 @@ public class TelaReceita extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
+
+		table_receita = new JTable();
+		Object[] listaColunas = { "ID Receita", "Nome", "Data", "Receita", "Valor"};
+		DefaultTableModel modelo = new DefaultTableModel(
+		    new Object[][] {
+		    },
+		    listaColunas
+		);
+
+		java.util.List<Receita> receitas = con.buscarTodasReceitas();
+		for (Receita r : receitas) {
+		    Object[] infoReceita = {
+		        r.getId_receita(),
+		        r.getId_usuario(),
+		        r.getData_receita(),
+		        r.getNome_receita(),
+		        r.getValor_receita()
+		    };
+
+		    modelo.addRow(infoReceita);
+		}
+		table_receita.setModel(modelo);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(383, 76, 512, 424);
+		contentPane.add(scrollPane);
+		scrollPane.setViewportView(table_receita);
+		
+		
+		
 		JButton btn_add = new JButton("Adicionar");
+		btn_add.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Receita receita = new Receita(0, 1, txt_nome_receita.getText(), txt_data_receita.getText(), txt_valor_receita.getText());
+				con.inserirNovaReceita(receita);
+				
+				Object[] listaColunas = { "ID Receita", "Nome", "Data", "Receita", "Valor"};
+				DefaultTableModel modelo = new DefaultTableModel(
+				    new Object[][] {
+				    },
+				    listaColunas
+				);
+
+				java.util.List<Receita> receitas = con.buscarTodasReceitas();
+				for (Receita r : receitas) {
+				    Object[] infoReceita = {
+				        r.getId_receita(),
+				        r.getId_usuario(),
+				        r.getData_receita(),
+				        r.getNome_receita(),
+				        r.getValor_receita()
+				    };
+
+				    modelo.addRow(infoReceita);
+				}
+				table_receita.setModel(modelo);
+			
+			}
+		});
+		
 		btn_add.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 15));
 		btn_add.setBounds(10, 10, 124, 45);
 		panel.add(btn_add);
@@ -150,33 +210,8 @@ public class TelaReceita extends JFrame {
 		btn_sair.setBounds(166, 65, 124, 45);
 		panel.add(btn_sair);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(383, 76, 512, 424);
-		contentPane.add(scrollPane);
 		
-		table = new JTable();
-		String[] listaColunas = { "ID Receita", "Nome", "Data", "Receita", "Valor"};
-		DefaultTableModel modelo = new DefaultTableModel(
-		    new Object[][] {
-		    },
-		    listaColunas
-		);
-
-		java.util.List<Receita> receitas = con.buscarTodasReceitas();
-		for (Receita r : receitas) {
-		    String[] infoReceita = {
-		        Integer.toString(r.getId_receita()),
-		        Integer.toString(r.getId_usuario()),
-		        r.getData_receita(),
-		        r.getNome_receita(),
-		        r.getValor_receita()
-		    };
-
-		    modelo.addRow(infoReceita);
-		}
-		table.setModel(modelo)
-		 ;
-		scrollPane.setViewportView(table);
+		
 		
 		JLabel lbl_mes_ano_receita = new JLabel("Selecione o Mês/Ano Desejado");
 		lbl_mes_ano_receita.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 15));
