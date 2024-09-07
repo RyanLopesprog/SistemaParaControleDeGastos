@@ -7,16 +7,14 @@ public class Despesa {
 	private String data_despesa;
 	private String nome_despesa;
 	private String valor_despesa;
-	private String tipo_despesa;
 	
-	public Despesa(int id_despesa, int id_usuario, String data_despesa, String nome_despesa, String valor_despesa, String tipo_despesa) {
+	public Despesa(int id_despesa, int id_usuario, String data_despesa, String nome_despesa, String valor_despesa) {
 		
 		this.id_despesa = id_despesa;
 		this.id_usuario = id_usuario;
 		this.data_despesa = data_despesa;
 		this.nome_despesa = nome_despesa;
 		this.valor_despesa = valor_despesa;
-		this.tipo_despesa = tipo_despesa;
 
 }
 
@@ -60,13 +58,7 @@ public class Despesa {
 		this.valor_despesa = valor_despesa;
 	}
 
-	public String getTipo_despesa() {
-		return tipo_despesa;
-	}
-
-	public void setTipo_despesa(String tipo_despesa) {
-		this.tipo_despesa = tipo_despesa;
-	}
+	
 	
 	public String toString() {
         return "Despesas{" +
@@ -75,7 +67,7 @@ public class Despesa {
                 ", data_despesa='" + data_despesa + '\'' +
                 ", nome_despesa='" + nome_despesa + '\'' +
                 ", valor_despesa=" + valor_despesa +
-                ", tipo_despesa=" + tipo_despesa +
+               
                 '}';
     }
 	

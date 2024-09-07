@@ -102,8 +102,7 @@ public class TelaReceita extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setBounds(31, 344, 269, 120);
 		contentPane.add(panel);
-		panel.setLayout(null);
-		
+		panel.setLayout(null);	
 
 		table_receita = new JTable();
 		Object[] listaColunas = { "ID Receita", "Nome", "Data", "Receita", "Valor"};
@@ -133,41 +132,6 @@ public class TelaReceita extends JFrame {
 		scrollPane.setViewportView(table_receita);
 		
 		
-		
-		JButton btn_add = new JButton("Adicionar");
-		btn_add.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Receita receita = new Receita(0, 1, txt_nome_receita.getText(), txt_data_receita.getText(), txt_valor_receita.getText());
-				con.inserirNovaReceita(receita);
-				
-				Object[] listaColunas = { "ID Receita", "Nome", "Data", "Receita", "Valor"};
-				DefaultTableModel modelo = new DefaultTableModel(
-				    new Object[][] {
-				    },
-				    listaColunas
-				);
-
-				java.util.List<Receita> receitas = con.buscarTodasReceitas();
-				for (Receita r : receitas) {
-				    Object[] infoReceita = {
-				        r.getId_receita(),
-				        r.getId_usuario(),
-				        r.getData_receita(),
-				        r.getNome_receita(),
-				        r.getValor_receita()
-				    };
-
-				    modelo.addRow(infoReceita);
-				}
-				table_receita.setModel(modelo);
-			
-			}
-		});
-		
-		btn_add.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 15));
-		btn_add.setBounds(10, 10, 124, 45);
-		panel.add(btn_add);
-		
 		JButton btn_despesas = new JButton("Despesas");
 		btn_despesas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -196,8 +160,39 @@ public class TelaReceita extends JFrame {
 		btn_sair.setBounds(135, 65, 124, 45);
 		panel.add(btn_sair);
 		
-		
-		
+		JButton btn_adicionar = new JButton("Adicionar");
+		btn_adicionar.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 15));
+		btn_adicionar.setBounds(10, 11, 124, 45);
+		panel.add(btn_adicionar);
+		btn_adicionar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Receita receita = new Receita(0, 1, txt_nome_receita.getText(), txt_data_receita.getText(),  txt_valor_receita.getText());
+				con.inserirNovaReceita(receita);
+				
+				Object[] listaColunas = { "ID Receita", "Nome", "Data", "Receita", "Valor"};
+				DefaultTableModel modelo = new DefaultTableModel(
+				    new Object[][] {
+				    },
+				    listaColunas
+				);
+
+				java.util.List<Receita> receitas = con.buscarTodasReceitas();
+				for (Receita r : receitas) {
+				    Object[] infoReceita = {
+				        r.getId_receita(),
+				        r.getId_usuario(),
+				        r.getNome_receita(),
+				        r.getData_receita(),
+				        r.getValor_receita()
+				    };
+
+				    modelo.addRow(infoReceita);
+				}
+				table_receita.setModel(modelo);
+			
+			}
+		});
 		
 		JLabel lbl_mes_ano_receita = new JLabel("Selecione o Mês/Ano Desejado");
 		lbl_mes_ano_receita.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 15));
@@ -223,5 +218,5 @@ public class TelaReceita extends JFrame {
 		btn_buscar_receita.setBounds(69, 272, 122, 19);
 		contentPane.add(btn_buscar_receita);
 	}
-	
 }
+

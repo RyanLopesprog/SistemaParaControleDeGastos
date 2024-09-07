@@ -22,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 
 
 import Gerenciador.Planilhas.Despesa;
+import Gerenciador.Planilhas.Receita;
 
 
 
@@ -33,8 +34,7 @@ public class TelaDespesas extends JFrame {
 	private JTextField txt_nome_despesas;
 	private JTextField txt_data_despesas;
 	private JTextField txt_valor_despesas;
-	private JTextField txt_tipo_despesas;
-	private JTable table;
+	private JTable table_despesa;
 
 	/**
 	 * Launch the application.
@@ -100,63 +100,65 @@ public class TelaDespesas extends JFrame {
 		contentPane.add(txt_valor_despesas);
 		txt_valor_despesas.setColumns(10);
 		
-		JLabel lbl_tipo_despesas = new JLabel("Tipo: ");
-		lbl_tipo_despesas.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 18));
-		lbl_tipo_despesas.setBounds(10, 196, 59, 18);
-		contentPane.add(lbl_tipo_despesas);
+		table_despesa = new JTable();
+		Object[] listaColunas = { "ID Despesa", "Nome", "Data", "Despesa", "Valor"};
+		DefaultTableModel modelo = new DefaultTableModel(
+		    new Object[][] {
+		    },
+		    listaColunas
+		);
+
+		java.util.List<Despesa> despesas = con.buscarTodasDespesas();
+		for (Despesa d : despesas) {
+		    Object[] infoDespesa = {
+		        d.getId_despesa(),
+		        d.getId_usuario(),
+		        d.getData_despesa(),
+		        d.getNome_despesa(),
+		        d.getValor_despesa()
+		    };
+
+		    modelo.addRow(infoDespesa);
+		}
+		table_despesa.setModel(modelo);
 		
-		txt_tipo_despesas = new JTextField();
-		txt_tipo_despesas.setBounds(83, 195, 108, 19);
-		contentPane.add(txt_tipo_despesas);
-		txt_tipo_despesas.setColumns(10);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(383, 76, 512, 424);
+		contentPane.add(scrollPane);
+		scrollPane.setViewportView(table_despesa);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(20, 339, 269, 136);
-		contentPane.add(panel);
-		panel.setLayout(null);
+		
 		
 		JButton btn_add = new JButton("Adicionar");
 		btn_add.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btn_add.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 15));
-		btn_add.setBounds(10, 10, 124, 45);
-		panel.add(btn_add);
-		
-		JButton btn_inicio = new JButton("Inicio");
-		btn_inicio.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				TelaLogin telalogin = new TelaLogin();
-				telalogin.setVisible(true);
-			}
-		});
-		btn_inicio.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 15));
-		btn_inicio.setBounds(10, 65, 124, 45);
-		panel.add(btn_inicio);
-		
-		JButton btn_sair = new JButton("Sair");
-		btn_sair.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-		btn_sair.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 15));
-		btn_sair.setBounds(135, 64, 124, 46);
-		panel.add(btn_sair);
-		
-		JButton btn_receitas = new JButton("Receitas");
-		btn_receitas.setBounds(135, 10, 124, 45);
-		panel.add(btn_receitas);
-		btn_receitas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+				Despesa despesa = new Despesa(0, 1, txt_nome_despesas.getText(), txt_data_despesas.getText(),  txt_valor_despesas.getText());
+				con.inserirNovaDespesa(despesa);
 				
-				TelaReceita receita = new TelaReceita();
-				receita.setVisible(true);
-				dispose();
+				Object[] listaColunas = { "ID Despesa", "Nome", "Data", "Despesa", "Valor"};
+				DefaultTableModel modelo = new DefaultTableModel(
+				    new Object[][] {
+				    },
+				    listaColunas
+				);
+
+				java.util.List<Despesa> despesas = con.buscarTodasDespesas();
+				for (Despesa d : despesas) {
+				    Object[] infoDespesa = {
+				        d.getId_despesa(),
+				        d.getId_usuario(),
+				        d.getNome_despesa(),
+				        d.getData_despesa(),
+				        d.getValor_despesa()
+				    };
+
+				    modelo.addRow(infoDespesa);
+				}
+				table_despesa.setModel(modelo);
+			
 			}
 		});
-		btn_receitas.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 15));
+		
 		
 		JComboBox comboBox_meses_despesas = new JComboBox();
 		comboBox_meses_despesas.setModel(new DefaultComboBoxModel(new String[] {"JANEIRO", "FEVEREIRO", "MARÇO", "ABRIL", "MAIO", "JUNHO", "JULHO", "AGOSTO", "SETEMBRO", "OUTUBRO", "NOVEMBRO ", "DEZEMBO"}));
@@ -177,34 +179,15 @@ public class TelaDespesas extends JFrame {
 		comboBox_anos_despesas.setMaximumRowCount(12);
 		comboBox_anos_despesas.setBounds(152, 259, 92, 27);
 		contentPane.add(comboBox_anos_despesas);
-		
-		JScrollPane scrollPane_tabela = new JScrollPane();
-		scrollPane_tabela.setBounds(299, 60, 539, 440);
-		contentPane.add(scrollPane_tabela);
-		
-		table = new JTable();
-		Object[] listaColunas = { "ID Despesa", "Nome", "Data", "Despesa", "Valor", "Tipo" };
-		DefaultTableModel modelo = new  DefaultTableModel(
-				new Object[][] {
-				},
-				new Object[] {
-					"id_despesa", "id_usuario", "data_despesa", "nome_despesa", "valor_despesa", "tipo_despesa"
-				}
-			);
-		java.util.List<Despesa> despesas = con.buscarTodasDespesas();
-		 for (Despesa d : despesas){
-             Object[] infoDespesa = {d.getId_despesa(), d.getId_usuario(), d.getData_despesa(), d.getNome_despesa(),
-            		 d.getValor_despesa(), d.getTipo_despesa()
-            		 };
-             
-             modelo.addRow(infoDespesa);
-         }
-		
-		table.setModel( modelo );
-		scrollPane_tabela.setViewportView(table);
+			
 		
 		JButton btn_buscar_despesas = new JButton("Buscar");
 		btn_buscar_despesas.setBounds(69, 297, 122, 19);
 		contentPane.add(btn_buscar_despesas);
+		
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBounds(31, 357, 269, 120);
+		contentPane.add(panel);
 	}
 }

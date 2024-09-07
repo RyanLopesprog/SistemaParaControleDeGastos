@@ -176,7 +176,7 @@ public List<Despesa> buscarTodasDespesas() {
 		rs = st.executeQuery("SELECT * FROM despesas");
 		
 		while(rs.next()) {
-			Despesa despesa = new Despesa(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
+			Despesa despesa = new Despesa(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5));
 			
 			despesas.add(despesa);
 		}
@@ -241,7 +241,26 @@ public void inserirNovaReceita(Receita receita) {
     desconectar();
 }
 
+public void inserirNovaDespesa(Despesa despesa) {
+    conectar();
+    
+    try {
+        // Prepara o comando SQL para inserir uma nova receita
+        pst = con.prepareStatement("INSERT INTO despesas (id_usuario, data_despesa, nome_despesa, valor_despesa) VALUES (?, ?, ?, ?)");
+        
+        pst.setInt(1, despesa.getId_usuario());
+        pst.setString(2, despesa.getData_despesa()); // Assumindo que data_receita é um String no formato 'YYYY-MM-DD'
+        pst.setString(3, despesa.getNome_despesa());
+        pst.setString(4, despesa.getValor_despesa());
 
+        // Executa o comando SQL
+        pst.executeUpdate();
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+    }
+    
+    desconectar();
+}
 
 }
 

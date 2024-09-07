@@ -46,7 +46,6 @@ public class Setup {
         	    + "data_despesa VARCHAR(255) NOT NULL, "
         	    + "nome_despesa VARCHAR(255) NOT NULL, "
         	    + "valor_despesa DECIMAL(10, 2) NOT NULL, "
-        	    + "tipo_despesa VARCHAR(255) NOT NULL, "
         	    + "CONSTRAINT fk_usuario_gasto FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)"
         	    + ");";
 
