@@ -82,7 +82,6 @@ public class TelaCadastro extends JFrame {
 		txt_cpf_cadastro = new JTextField();
 		txt_cpf_cadastro.setBounds(21, 220, 130, 20);
 		contentPane.add(txt_cpf_cadastro);
-		txt_cpf_cadastro.setColumns(11);
 		
 		JLabel lbl_senha_cadastro = new JLabel("Senha:");
 		lbl_senha_cadastro.setFont(new Font("Times New Roman", Font.ITALIC, 18));
@@ -97,8 +96,8 @@ public class TelaCadastro extends JFrame {
 		JButton btn_cadastro = new JButton("Cadastrar");
 		btn_cadastro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Usuario usuario = new Usuario(1, txt_nome_apelido.getText(), txt_login_cadastro.getText(),
-						txt_cpf_cadastro.getText(), txt_senha_cadastro.getText());
+				Usuario usuario = new Usuario(1, txt_nome_apelido.getText(),txt_cpf_cadastro.getText(), txt_login_cadastro.getText(),
+						 txt_senha_cadastro.getText());
 				con.inserirNovoUsuario(usuario);
 			}
 		});

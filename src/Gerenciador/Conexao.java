@@ -90,22 +90,17 @@ public class Conexao {
 
     }
     
-    public static void main(String[] args) {
-        Conexao conexaoBanco = new Conexao("jdbc:mysql://localhost:3306/controlefinanceiro", "root", "L0p3s09@");
-        
-        conexaoBanco.verTabelacontrolefinanceiro();
-    }
     
 public void inserirNovoUsuario(Usuario usuario){
 	conectar();
         
         try {
-            pst = con.prepareStatement("INSERT INTO usuarios (usuario_login, nome_usuario, cpf_usuario, senha_login)VALUES (?, ?, ?, ?)");
+            pst = con.prepareStatement("INSERT INTO usuarios ( nome_usuario, cpf_usuario, usuario_login, senha_login)VALUES (?, ?, ?, ?)");
             
             
-            pst.setString(1, usuario.getUsuario_login());
-            pst.setString(2, usuario.getNome_usuario());
-            pst.setString(3, usuario.getCpf_usuario());
+            pst.setString(1, usuario.getNome_usuario());
+            pst.setString(2, usuario.getCpf_usuario());
+            pst.setString(3, usuario.getUsuario_login());
             pst.setString(4, usuario.getSenha_login());
 
             pst.executeUpdate();
@@ -138,6 +133,7 @@ public Usuario buscarUsuarioPorNome(String Nome_usuario){
     desconectar();
     return usuario;
 }
+
 
 public List<Usuario> buscarTodosUsuarios() {
     List<Usuario> usuarios = new ArrayList<Usuario>();

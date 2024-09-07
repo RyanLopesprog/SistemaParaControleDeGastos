@@ -31,14 +31,14 @@ public class Setup {
 
         statement.execute("USE controlefinanceiro");
         String createTableusuarios = 
-        	    "CREATE TABLE usuarios (" +
-        	    "id_usuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
-        	    "nome_usuario VARCHAR(255) NOT NULL, " +
-        	    "cpf_usuario CHAR(11) NOT NULL UNIQUE, " +
-        	    "usuario_login VARCHAR(255) NOT NULL, " +
-        	    "senha_login VARCHAR(255) NOT NULL, " +
-        	    "CONSTRAINT check_tamanho_cpf CHECK (LENGTH(cpf_usuario) = 11)" +
-        	    ");";
+                "CREATE TABLE usuarios (" +
+                "id_usuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
+                "nome_usuario VARCHAR(255) NOT NULL, " +
+                "cpf_usuario CHAR(11) NOT NULL UNIQUE, " +
+                "usuario_login VARCHAR(255) NOT NULL, " +
+                "senha_login VARCHAR(255) NOT NULL, " +
+                "CONSTRAINT cpf_user CHECK (LENGTH(cpf_usuario) = 11 AND cpf_usuario REGEXP '^[0-9]{11}$')" + ")";
+        
         
         String createTabledespesas = "CREATE TABLE despesas ("
         	    + "id_depesa INT NOT NULL AUTO_INCREMENT PRIMARY KEY, "
