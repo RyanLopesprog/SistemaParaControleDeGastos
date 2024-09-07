@@ -14,7 +14,7 @@ public class Setup {
         // Criar conexão com o banco. Dicas: Connection, Drivermanager.getConnection
         String url = "jdbc:mysql://localhost:3306/";
         String user = "root";
-        String password = "Aluno";
+        String password = "L0p3s09@";
 
         Connection conexaoBanco = DriverManager.getConnection(url, user, password);
 
@@ -30,14 +30,15 @@ public class Setup {
         System.out.println("Banco criado com sucesso!");
 
         statement.execute("USE controlefinanceiro");
-        String createTableusuarios = "CREATE TABLE usuarios ("
-                + "id_usuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY, "
-                + "nome_usuario VARCHAR(255) NOT NULL, "
-                + "cpf_usuario CHAR(11) NOT NULL UNIQUE, "
-                + "usuario_login VARCHAR(255) NOT NULL, "
-                + "senha_login VARCHAR(255) NOT NULL, "
-                + "CONSTRAINT check_tamanho_cpf CHECK (LENGTH(cpf_usuario) = 11)"
-                 + ");";
+        String createTableusuarios = 
+        	    "CREATE TABLE usuarios (" +
+        	    "id_usuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
+        	    "nome_usuario VARCHAR(255) NOT NULL, " +
+        	    "cpf_usuario CHAR(11) NOT NULL UNIQUE, " +
+        	    "usuario_login VARCHAR(255) NOT NULL, " +
+        	    "senha_login VARCHAR(255) NOT NULL, " +
+        	    "CONSTRAINT check_tamanho_cpf CHECK (LENGTH(cpf_usuario) = 11)" +
+        	    ");";
         
         String createTabledespesas = "CREATE TABLE despesas ("
         	    + "id_depesa INT NOT NULL AUTO_INCREMENT PRIMARY KEY, "
@@ -49,6 +50,7 @@ public class Setup {
         	    + "CONSTRAINT fk_usuario_gasto FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)"
         	    + ");";
 
+      
         
         String createTableusreceitas = "CREATE TABLE receitas ("
                 + "id_receita INT NOT NULL AUTO_INCREMENT PRIMARY KEY, "
@@ -59,7 +61,6 @@ public class Setup {
                 + "CONSTRAINT fk_usuario_receita FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) "
                 + ");";
         
-       
 
 		statement.execute(createTableusuarios);
 		statement.execute(createTabledespesas);

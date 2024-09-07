@@ -91,7 +91,7 @@ public class Conexao {
     }
     
     public static void main(String[] args) {
-        Conexao conexaoBanco = new Conexao("jdbc:mysql://localhost:3306/controlefinanceiro", "root", "Aluno");
+        Conexao conexaoBanco = new Conexao("jdbc:mysql://localhost:3306/controlefinanceiro", "root", "L0p3s09@");
         
         conexaoBanco.verTabelacontrolefinanceiro();
     }
@@ -100,10 +100,12 @@ public void inserirNovoUsuario(Usuario usuario){
 	conectar();
         
         try {
-            pst = con.prepareStatement("INSERT INTO usuario VALUES (DEFAULT, ?, ?, ?, ?)");
-            pst.setString(1, usuario.getNome_usuario());
-            pst.setString(2, usuario.getCpf_usuario());
-            pst.setString(3, usuario.getUsuario_login());
+            pst = con.prepareStatement("INSERT INTO usuarios (usuario_login, nome_usuario, cpf_usuario, senha_login)VALUES (?, ?, ?, ?)");
+            
+            
+            pst.setString(1, usuario.getUsuario_login());
+            pst.setString(2, usuario.getNome_usuario());
+            pst.setString(3, usuario.getCpf_usuario());
             pst.setString(4, usuario.getSenha_login());
 
             pst.executeUpdate();
@@ -117,7 +119,7 @@ public Usuario buscarUsuarioPorNome(String Nome_usuario){
     Usuario usuario = null;
     conectar();
     try {
-        pst = con.prepareStatement("SELECT * FROM controlefinancerio WHERE nome_usuario = ?");
+        pst = con.prepareStatement("SELECT * FROM controlefinancerio.usuarios WHERE nome_usuario = ?");
         pst.setString(1, Nome_usuario);
         rs = pst.executeQuery();
 
@@ -135,6 +137,36 @@ public Usuario buscarUsuarioPorNome(String Nome_usuario){
     }
     desconectar();
     return usuario;
+}
+
+public List<Usuario> buscarTodosUsuarios() {
+    List<Usuario> usuarios = new ArrayList<Usuario>();
+    conectar();
+
+    try {
+        // SELECT * FROM usuarios
+        st = con.createStatement();
+
+        rs = st.executeQuery("SELECT * FROM usuarios");
+
+        while(rs.next()) {
+            Usuario usuario = new Usuario(
+                rs.getInt(1),         // id_usuario
+                rs.getString(2),      // nome_usuario
+                rs.getString(3),      // cpf_usuario
+                rs.getString(4),      // usuario_login
+                rs.getString(5)       // senha_login
+            );
+
+            usuarios.add(usuario);
+        }
+
+    } catch (SQLException e) {
+        System.err.println(e.getMessage());
+    }
+
+    desconectar();
+    return usuarios;
 }
 
 public List<Despesa> buscarTodasDespesas() {
@@ -191,37 +223,6 @@ public List<Receita> buscarTodasReceitas() {
     desconectar();
     return receitas;
 }
-
-public List<Usuario> buscarTodosUsuarios() {
-    List<Usuario> usuarios = new ArrayList<Usuario>();
-    conectar();
-
-    try {
-        // SELECT * FROM usuarios
-        st = con.createStatement();
-
-        rs = st.executeQuery("SELECT * FROM usuarios");
-
-        while(rs.next()) {
-            Usuario usuario = new Usuario(
-                rs.getInt(1),         // id_usuario
-                rs.getString(2),      // nome_usuario
-                rs.getString(3),      // cpf_usuario
-                rs.getString(4),      // usuario_login
-                rs.getString(5)       // senha_login
-            );
-
-            usuarios.add(usuario);
-        }
-
-    } catch (SQLException e) {
-        System.err.println(e.getMessage());
-    }
-
-    desconectar();
-    return usuarios;
-}
-
 
 public void inserirNovaReceita(Receita receita) {
     conectar();

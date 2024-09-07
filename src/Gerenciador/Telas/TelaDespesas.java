@@ -26,7 +26,7 @@ import Gerenciador.Planilhas.Despesa;
 
 
 public class TelaDespesas extends JFrame {
-	static Gerenciador.Conexao con = new Gerenciador.Conexao("jdbc:mysql://localhost:3306/controlefinanceiro", "root", "Aluno");
+	static Gerenciador.Conexao con = new Gerenciador.Conexao("jdbc:mysql://localhost:3306/controlefinanceiro", "root", "L0p3s09@");
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -116,40 +116,47 @@ public class TelaDespesas extends JFrame {
 		panel.setLayout(null);
 		
 		JButton btn_add = new JButton("Adicionar");
+		btn_add.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btn_add.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 15));
 		btn_add.setBounds(10, 10, 124, 45);
 		panel.add(btn_add);
 		
+		JButton btn_inicio = new JButton("Inicio");
+		btn_inicio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaLogin telalogin = new TelaLogin();
+				telalogin.setVisible(true);
+			}
+		});
+		btn_inicio.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 15));
+		btn_inicio.setBounds(10, 65, 124, 45);
+		panel.add(btn_inicio);
+		
+		JButton btn_sair = new JButton("Sair");
+		btn_sair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		btn_sair.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 15));
+		btn_sair.setBounds(135, 64, 124, 46);
+		panel.add(btn_sair);
+		
 		JButton btn_receitas = new JButton("Receitas");
+		btn_receitas.setBounds(135, 10, 124, 45);
+		panel.add(btn_receitas);
 		btn_receitas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {
-							TelaReceita receita = new TelaReceita();
-							receita.setVisible(true);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				});
+				TelaReceita receita = new TelaReceita();
+				receita.setVisible(true);
 				dispose();
 			}
 		});
 		btn_receitas.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 15));
-		btn_receitas.setBounds(10, 65, 124, 45);
-		panel.add(btn_receitas);
-		
-		JButton btn_inicio = new JButton("Inicio");
-		btn_inicio.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 15));
-		btn_inicio.setBounds(135, 65, 124, 45);
-		panel.add(btn_inicio);
-		
-		JButton btn_sair = new JButton("Sair");
-		btn_sair.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 15));
-		btn_sair.setBounds(135, 11, 124, 45);
-		panel.add(btn_sair);
 		
 		JComboBox comboBox_meses_despesas = new JComboBox();
 		comboBox_meses_despesas.setModel(new DefaultComboBoxModel(new String[] {"JANEIRO", "FEVEREIRO", "MARÇO", "ABRIL", "MAIO", "JUNHO", "JULHO", "AGOSTO", "SETEMBRO", "OUTUBRO", "NOVEMBRO ", "DEZEMBO"}));
@@ -176,17 +183,18 @@ public class TelaDespesas extends JFrame {
 		contentPane.add(scrollPane_tabela);
 		
 		table = new JTable();
-		String[] listaColunas = { "ID Despesa", "Nome", "Data", "Despesa", "Valor", "Tipo" };
+		Object[] listaColunas = { "ID Despesa", "Nome", "Data", "Despesa", "Valor", "Tipo" };
 		DefaultTableModel modelo = new  DefaultTableModel(
 				new Object[][] {
 				},
-				new String[] {
+				new Object[] {
 					"id_despesa", "id_usuario", "data_despesa", "nome_despesa", "valor_despesa", "tipo_despesa"
 				}
 			);
 		java.util.List<Despesa> despesas = con.buscarTodasDespesas();
 		 for (Despesa d : despesas){
-             String[] infoDespesa = {Integer.toString(d.getId_despesa()), Integer.toString(d.getId_usuario()), d.getData_despesa(), d.getNome_despesa(), d.getValor_despesa(), d.getTipo_despesa()
+             Object[] infoDespesa = {d.getId_despesa(), d.getId_usuario(), d.getData_despesa(), d.getNome_despesa(),
+            		 d.getValor_despesa(), d.getTipo_despesa()
             		 };
              
              modelo.addRow(infoDespesa);
