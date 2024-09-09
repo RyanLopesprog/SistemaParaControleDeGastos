@@ -19,7 +19,7 @@ import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class TelaCadastro extends JFrame {
-	static Conexao con = new Conexao("jdbc:mysql://localhost:3306/controlefinanceiro", "root", "Aluno");
+	static Conexao con = new Conexao("jdbc:mysql://localhost:3306/controlefinanceiro", "root", "L0p3s09@");
 	
 	private static final long serialVersionUID = 1L;
 

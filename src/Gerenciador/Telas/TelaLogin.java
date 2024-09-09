@@ -19,7 +19,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class TelaLogin extends JFrame {
-	static Conexao con = new Conexao("jdbc:mysql://localhost:3306/controlefinanceiro", "root", "Aluno");
+	static Conexao con = new Conexao("jdbc:mysql://localhost:3306/controlefinanceiro", "root", "L0p3s09@");
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
