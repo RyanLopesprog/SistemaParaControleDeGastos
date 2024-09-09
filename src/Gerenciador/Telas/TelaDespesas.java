@@ -27,7 +27,7 @@ import Gerenciador.Planilhas.Receita;
 
 
 public class TelaDespesas extends JFrame {
-	static Gerenciador.Conexao con = new Gerenciador.Conexao("jdbc:mysql://localhost:3306/controlefinanceiro", "root", "L0p3s09@");
+	static Gerenciador.Conexao con = new Gerenciador.Conexao("jdbc:mysql://localhost:3306/controlefinanceiro", "root", "Aluno");
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;

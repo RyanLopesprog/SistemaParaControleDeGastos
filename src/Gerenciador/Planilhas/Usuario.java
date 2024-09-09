@@ -5,15 +5,13 @@ public class Usuario {
 	private int id_usuario;
 	private String nome_usuario;
 	private String cpf_usuario;
-	private String usuario_login;
 	private String senha_login;
 	
-	public Usuario(int id_usuario, String nome_usuario, String cpf_usuario, String usuario_login, String senha_login) {
+	public Usuario(int id_usuario, String nome_usuario, String cpf_usuario, String senha_login) {
 		
 		this.id_usuario = id_usuario;
 		this.nome_usuario = nome_usuario;
 		this.cpf_usuario = cpf_usuario;
-		this.usuario_login = usuario_login;
 		this.senha_login = senha_login;
 		
 	}
@@ -40,15 +38,7 @@ public class Usuario {
 
 	public void setCpf_usuario(String cpf_usuario) {
 		this.cpf_usuario = cpf_usuario;
-	}
-	
-	public String getUsuario_login() {
-		return usuario_login;
-	}
-
-	public void setUsuario_login(String usuario_login) {
-		this.usuario_login = usuario_login;
-	}
+	}	
 
 	public String getSenha_login() {
 		return senha_login;
@@ -63,6 +53,7 @@ public class Usuario {
                 "id_usuario=" + id_usuario +
                 ", nome_usuario='" + nome_usuario + '\'' +
                 ", cpf_usuario=" + cpf_usuario +
+                ", senha_login =" + senha_login + '\'' +
                 '}';
     }
 	

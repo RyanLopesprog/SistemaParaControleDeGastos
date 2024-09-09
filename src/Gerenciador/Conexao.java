@@ -95,13 +95,12 @@ public void inserirNovoUsuario(Usuario usuario){
 	conectar();
         
         try {
-            pst = con.prepareStatement("INSERT INTO usuarios ( nome_usuario, cpf_usuario, usuario_login, senha_login)VALUES (?, ?, ?, ?)");
+            pst = con.prepareStatement("INSERT INTO usuarios (nome_usuario, cpf_usuario, senha_login)VALUES (?, ?, ?)");
             
             
             pst.setString(1, usuario.getNome_usuario());
             pst.setString(2, usuario.getCpf_usuario());
-            pst.setString(3, usuario.getUsuario_login());
-            pst.setString(4, usuario.getSenha_login());
+            pst.setString(3, usuario.getSenha_login());
 
             pst.executeUpdate();
         } catch (SQLException e) {
@@ -110,21 +109,16 @@ public void inserirNovoUsuario(Usuario usuario){
         desconectar();
     }
 
-public Usuario buscarUsuarioPorNome(String Nome_usuario){
+public Usuario buscarUsuarioPorCpf(String Cpf_usuario){
     Usuario usuario = null;
     conectar();
     try {
-        pst = con.prepareStatement("SELECT * FROM controlefinancerio.usuarios WHERE nome_usuario = ?");
-        pst.setString(1, Nome_usuario);
+        pst = con.prepareStatement("SELECT * FROM controlefinanceiro.usuarios WHERE cpf_usuario = ?");
+        pst.setString(1, Cpf_usuario);
         rs = pst.executeQuery();
 
         if (rs.next()){
-            usuario = new Usuario(0, Nome_usuario, Nome_usuario, Nome_usuario, Nome_usuario);
-            usuario.setId_usuario(rs.getInt(0));
-            usuario.setNome_usuario(rs.getString(1));
-            usuario.setCpf_usuario(rs.getString(2));
-            usuario.setUsuario_login(rs.getString(4));
-            usuario.setSenha_login(rs.getString(5));
+            usuario = new Usuario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));
         }
         
     } catch (SQLException e) {
@@ -150,8 +144,7 @@ public List<Usuario> buscarTodosUsuarios() {
                 rs.getInt(1),         // id_usuario
                 rs.getString(2),      // nome_usuario
                 rs.getString(3),      // cpf_usuario
-                rs.getString(4),      // usuario_login
-                rs.getString(5)       // senha_login
+                rs.getString(4)       // senha_login
             );
 
             usuarios.add(usuario);
@@ -262,6 +255,10 @@ public void inserirNovaDespesa(Despesa despesa) {
     desconectar();
 }
 
+public static void main(String[] args) {
+	Conexao con = new Conexao("jdbc:mysql://localhost:3306/controlefinanceiro", "root", "Aluno");
+	System.out.println(con.buscarTodosUsuarios());
+}
 }
 
 
