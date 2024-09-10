@@ -19,7 +19,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class TelaLogin extends JFrame {
-	static Conexao con = new Conexao("jdbc:mysql://localhost:3306/controlefinanceiro", "root", "L0p3s09@");
+	static Conexao con = new Conexao("jdbc:mysql://localhost:3306/controlefinanceiro", "root", "Aluno");
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -54,62 +54,62 @@ public class TelaLogin extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel lbl_gestor_incio = new JLabel("Bem vindo a Gestão Financeira");
 		lbl_gestor_incio.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 20));
 		lbl_gestor_incio.setBounds(88, 11, 269, 14);
 		contentPane.add(lbl_gestor_incio);
-		
+
 		JLabel lbl_inicio_cpf = new JLabel("CPF:");
 		lbl_inicio_cpf.setFont(new Font("Times New Roman", Font.ITALIC, 18));
 		lbl_inicio_cpf.setBounds(25, 96, 132, 14);
 		contentPane.add(lbl_inicio_cpf);
-		
+
 		txt_login = new JTextField();
 		txt_login.setBounds(25, 124, 132, 20);
 		contentPane.add(txt_login);
 		txt_login.setColumns(10);
-		
+
 		JLabel lbl_senha_inicio = new JLabel("Senha:");
 		lbl_senha_inicio.setFont(new Font("Times New Roman", Font.ITALIC, 18));
 		lbl_senha_inicio.setBounds(25, 165, 63, 14);
 		contentPane.add(lbl_senha_inicio);
-		
+
 		txt_senha = new JTextField();
 		txt_senha.setBounds(25, 190, 132, 20);
 		contentPane.add(txt_senha);
 		txt_senha.setColumns(10);
-		
+
 		JButton btn_login_inicio = new JButton("Login");
 		btn_login_inicio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String cpf = txt_login.getText();
 				String senha = txt_senha.getText();
-				
-				if(cpf.equals("")) {
+
+				if (cpf.equals("")) {
 					JOptionPane.showMessageDialog(btn_login_inicio, "DIGITE SEU CPF PARA FAZERT LOGIN");
-				} else if(senha.equals("")) {
+				} else if (senha.equals("")) {
 					JOptionPane.showMessageDialog(btn_login_inicio, "DIGITE UMA SENHA VÁLIDA");
-				}else {
+				} else {
 					Usuario dadoslogin = con.buscarUsuarioPorCpf(cpf);
-					if(dadoslogin != null && dadoslogin.getSenha_login().equals(senha)) {
-						
+					if (dadoslogin != null && dadoslogin.getSenha_login().equals(senha)) {
+
 						TelaPrincipal telaPrincipal = new TelaPrincipal(dadoslogin);
 						telaPrincipal.setVisible(true);
 						dispose();
 					} else {
 						JOptionPane.showMessageDialog(btn_login_inicio, "DADOS INCORRETOS!");
 					}
-					
-				}		
-				
+
+				}
+
 			}
 		});
-		
+
 		btn_login_inicio.setFont(new Font("Times New Roman", Font.ITALIC, 22));
 		btn_login_inicio.setBounds(265, 114, 112, 35);
 		contentPane.add(btn_login_inicio);
-		
+
 		JButton btn_cadastro_inicio = new JButton("Cadastro");
 		btn_cadastro_inicio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

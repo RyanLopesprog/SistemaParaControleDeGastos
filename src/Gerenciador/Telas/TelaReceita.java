@@ -20,12 +20,13 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import Gerenciador.Planilhas.Receita;
+import Gerenciador.Planilhas.Usuario;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
 public class TelaReceita extends JFrame {
-	static Gerenciador.Conexao con = new Gerenciador.Conexao("jdbc:mysql://localhost:3306/controlefinanceiro", "root", "L0p3s09@");
+	static Gerenciador.Conexao con = new Gerenciador.Conexao("jdbc:mysql://localhost:3306/controlefinanceiro", "root", "Aluno");
 
 
 	private static final long serialVersionUID = 1L;
@@ -42,7 +43,7 @@ public class TelaReceita extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaReceita receita = new TelaReceita();
+					TelaReceita receita = new TelaReceita(null);
 					receita.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,7 +55,7 @@ public class TelaReceita extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaReceita() {
+	public TelaReceita(Usuario dadosrecebidos) {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 936, 550);
@@ -105,7 +106,9 @@ public class TelaReceita extends JFrame {
 		panel.setLayout(null);	
 
 		table_receita = new JTable();
-		Object[] listaColunas = { "ID Receita", "Nome", "Data", "Receita", "Valor"};
+		
+		
+		Object[] listaColunas = { "ID Receita", "Nome",  "Receita","Data", "Valor"};
 		DefaultTableModel modelo = new DefaultTableModel(
 		    new Object[][] {
 		    },
@@ -131,18 +134,21 @@ public class TelaReceita extends JFrame {
 		contentPane.add(scrollPane);
 		scrollPane.setViewportView(table_receita);
 		
+		table_receita.setDefaultEditor(Object.class, null);
+		
 		
 		JButton btn_despesas = new JButton("Despesas");
 		btn_despesas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				TelaDespesas despesas = new TelaDespesas();
+				TelaDespesas despesas = new TelaDespesas(dadosrecebidos);
 				despesas.setVisible(true);
 				dispose();
 			}
 		});
+		
 		btn_despesas.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 15));
-		btn_despesas.setBounds(135, 10, 124, 45);
+		btn_despesas.setBounds(135, 11, 124, 44);
 		panel.add(btn_despesas);
 		
 		JButton btn_inicio = new JButton("Inicio");
@@ -167,7 +173,7 @@ public class TelaReceita extends JFrame {
 		btn_adicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				Receita receita = new Receita(0, 1, txt_nome_receita.getText(), txt_data_receita.getText(),  txt_valor_receita.getText());
+				Receita receita = new Receita(0,dadosrecebidos.getId_usuario(), dadosrecebidos.getNome_usuario(), txt_nome_receita.getText(), txt_data_receita.getText(),  txt_valor_receita.getText());
 				con.inserirNovaReceita(receita);
 				
 				Object[] listaColunas = { "ID Receita", "Nome", "Data", "Receita", "Valor"};
@@ -181,7 +187,7 @@ public class TelaReceita extends JFrame {
 				for (Receita r : receitas) {
 				    Object[] infoReceita = {
 				        r.getId_receita(),
-				        r.getId_usuario(),
+				        r.getNome_usuario(),
 				        r.getNome_receita(),
 				        r.getData_receita(),
 				        r.getValor_receita()

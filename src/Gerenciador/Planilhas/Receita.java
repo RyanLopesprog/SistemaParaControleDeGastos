@@ -7,12 +7,14 @@ public class Receita {
 	private String data_receita;
 	private String nome_receita;
 	private String valor_receita;
+	private String nome_usuario;
 	
 	
-	public Receita(int id_receita, int id_usuario, String data_receita, String nome_receita, String valor_receita) {
+	public Receita(int id_receita, int id_usuario, String nome_usuario,  String data_receita, String nome_receita, String valor_receita) {
 		
 		this.id_receita = id_receita;
 		this.id_usuario = id_usuario;
+		this.nome_usuario = nome_usuario;
 		this.data_receita = data_receita;
 		this.nome_receita = nome_receita;
 		this.valor_receita = valor_receita;
@@ -33,6 +35,14 @@ public class Receita {
 
 	public void setId_usuario(int id_usuario) {
 		this.id_usuario = id_usuario;
+	}
+
+	public String getNome_usuario() {
+		return nome_usuario;
+	}
+
+	public void setNome_usuario(String nome_usuario) {
+		this.nome_usuario = nome_usuario;
 	}
 
 	public String getData_receita() {
