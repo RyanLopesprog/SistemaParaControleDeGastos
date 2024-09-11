@@ -1,5 +1,9 @@
 package Gerenciador.Planilhas;
 
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 public class Despesa {
 	
 	private int id_despesa;
@@ -82,5 +86,23 @@ public class Despesa {
                
                 '}';
     }
+	
+	
+	public String formatodataBR() {
+		 String dataBR = null;
+		 SimpleDateFormat formatoBR = new SimpleDateFormat("dd/MM/yyyy");
+		 SimpleDateFormat formatoISO = new SimpleDateFormat("yyyy-MM-dd"); 
+		System.out.println(getData_despesa());
+		 Date data = null;
+		 try {
+			data = formatoISO.parse(getData_despesa());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 
+		 return formatoBR.format(data);
+		
+	}
 	
 }

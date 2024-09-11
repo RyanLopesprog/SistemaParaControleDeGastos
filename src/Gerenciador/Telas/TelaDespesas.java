@@ -109,10 +109,11 @@ public class TelaDespesas extends JFrame {
 
 		java.util.List<Despesa> despesas = con.buscarDespesasUsuario(dadosrebidos.getId_usuario());
 		for (Despesa d : despesas) {
+			
 			Object[] infoDespesa = { 
 					d.getId_despesa(), 
 					d.getNome_usuario(),
-					d.getData_despesa(),
+					d.formatodataBR(),
 					d.getNome_despesa(),
 					d.getValor_despesa() };
 
@@ -161,8 +162,12 @@ public class TelaDespesas extends JFrame {
 		JButton bnt_adicionar = new JButton("Adicionar");
 		bnt_adicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Despesa despesa = new Despesa(0, dadosrebidos.getId_usuario(), dadosrebidos.getNome_usuario(), txt_nome_despesas.getText(), txt_data_despesas.getText(),
+				
+				
+				Despesa despesa = new Despesa(0, dadosrebidos.getId_usuario(), dadosrebidos.getNome_usuario(), txt_data_despesas.getText(), txt_nome_despesas.getText(),
 						txt_valor_despesas.getText());
+				
+				
 				con.inserirNovaDespesa(despesa);
 
 				Object[] listaColunas = { "ID Despesa", "Nome", "Data", "Despesa", "Valor" };
@@ -170,13 +175,12 @@ public class TelaDespesas extends JFrame {
 
 				java.util.List<Despesa> despesas = con.buscarDespesasUsuario(dadosrebidos.getId_usuario());
 				for (Despesa d : despesas) {
-					Object[] infoDespesa = { d.getId_despesa(), d.getNome_usuario(), d.getNome_despesa(),
-							d.getData_despesa(), d.getValor_despesa() };
+					Object[] infoDespesa = { d.getId_despesa(), d.getNome_usuario(), 
+							d.formatodataBR(), d.getNome_despesa(), d.getValor_despesa() };
 
 					modelo.addRow(infoDespesa);
 				}
 				table_despesa.setModel(modelo);
-
 			}
 			
 		});

@@ -223,6 +223,15 @@ public class TelaReceita extends JFrame {
 		contentPane.add(comboBox_anos_receita);
 		
 		JButton btn_buscar_receita = new JButton("Buscar");
+		btn_buscar_receita.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				
+				
+				
+			}
+		});
 		btn_buscar_receita.setBounds(69, 272, 122, 19);
 		contentPane.add(btn_buscar_receita);
 	}

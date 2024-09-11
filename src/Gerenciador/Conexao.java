@@ -208,7 +208,6 @@ public class Conexao {
 		return despesas;
 	}
 	
-
 	public List<Receita> buscarReceitasUsuario(int id_usuario) {
 
 		List<Receita> receitas = new ArrayList<Receita>();
@@ -273,8 +272,7 @@ public class Conexao {
 					"INSERT INTO despesas (id_usuario, data_despesa, nome_despesa, valor_despesa) VALUES (?, ?, ?, ?)");
 
 			pst.setInt(1, despesa.getId_usuario());
-			pst.setString(2, despesa.getData_despesa()); // Assumindo que data_receita é um String no formato
-															// 'YYYY-MM-DD'
+			pst.setString(2, despesa.getData_despesa()); // Assumindo que data_receita é um String no formato									// 'YYYY-MM-DD'
 			pst.setString(3, despesa.getNome_despesa());
 			pst.setString(4, despesa.getValor_despesa());
 
@@ -291,5 +289,7 @@ public class Conexao {
 		Conexao con = new Conexao("jdbc:mysql://localhost:3306/controlefinanceiro", "root", "Aluno");
 		System.out.println(con.buscarTodosUsuarios());
 	}
+
+	
 
 }
