@@ -35,7 +35,7 @@ public class Setup {
 					+ "CONSTRAINT cpf_user CHECK (LENGTH(cpf_usuario) = 11 AND cpf_usuario REGEXP '^[0-9]{11}$')" + ")";
 
 			String createTabledespesas = "CREATE TABLE IF NOT EXISTS despesas ("
-					+ "id_depesa INT NOT NULL AUTO_INCREMENT PRIMARY KEY, " + "id_usuario INT NOT NULL, "
+					+ "id_despesa INT NOT NULL AUTO_INCREMENT PRIMARY KEY, " + "id_usuario INT NOT NULL, "
 					+ "data_despesa VARCHAR(255) NOT NULL, " + "nome_despesa VARCHAR(255) NOT NULL, "
 					+ "valor_despesa DECIMAL(10, 2) NOT NULL, "
 					+ "CONSTRAINT fk_usuario_gasto FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)" + ");";

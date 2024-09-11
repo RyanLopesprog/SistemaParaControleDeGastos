@@ -4,14 +4,16 @@ public class Despesa {
 	
 	private int id_despesa;
 	private int id_usuario;
+	private String nome_usuario;
 	private String data_despesa;
 	private String nome_despesa;
 	private String valor_despesa;
 	
-	public Despesa(int id_despesa, int id_usuario, String data_despesa, String nome_despesa, String valor_despesa) {
+	public Despesa(int id_despesa, int id_usuario, String nome_usuario, String data_despesa, String nome_despesa, String valor_despesa) {
 		
 		this.id_despesa = id_despesa;
 		this.id_usuario = id_usuario;
+		this.nome_usuario = nome_usuario;
 		this.data_despesa = data_despesa;
 		this.nome_despesa = nome_despesa;
 		this.valor_despesa = valor_despesa;
@@ -32,6 +34,15 @@ public class Despesa {
 
 	public void setId_usuario(int id_usuario) {
 		this.id_usuario = id_usuario;
+	}
+	
+
+	public String getNome_usuario() {
+		return nome_usuario;
+	}
+
+	public void setNome_usuario(String nome_usuario) {
+		this.nome_usuario = nome_usuario;
 	}
 
 	public String getData_despesa() {
@@ -64,6 +75,7 @@ public class Despesa {
         return "Despesas{" +
                 "id_despesa=" + id_despesa +
                 ", id_usuario='" + id_usuario + '\'' +
+                 ", nome_usuario='" + nome_usuario + '\'' +
                 ", data_despesa='" + data_despesa + '\'' +
                 ", nome_despesa='" + nome_despesa + '\'' +
                 ", valor_despesa=" + valor_despesa +

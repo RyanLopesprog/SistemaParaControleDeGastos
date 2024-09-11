@@ -107,9 +107,13 @@ public class TelaDespesas extends JFrame {
 		Object[] listaColunas = { "ID Despesa", "Nome", "Data", "Despesa", "Valor" };
 		DefaultTableModel modelo = new DefaultTableModel(new Object[][] {}, listaColunas);
 
-		java.util.List<Despesa> despesas = con.buscarTodasDespesas();
+		java.util.List<Despesa> despesas = con.buscarDespesasUsuario(dadosrebidos.getId_usuario());
 		for (Despesa d : despesas) {
-			Object[] infoDespesa = { d.getId_despesa(), d.getId_usuario(), d.getData_despesa(), d.getNome_despesa(),
+			Object[] infoDespesa = { 
+					d.getId_despesa(), 
+					d.getNome_usuario(),
+					d.getData_despesa(),
+					d.getNome_despesa(),
 					d.getValor_despesa() };
 
 			modelo.addRow(infoDespesa);
@@ -157,16 +161,16 @@ public class TelaDespesas extends JFrame {
 		JButton bnt_adicionar = new JButton("Adicionar");
 		bnt_adicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Despesa despesa = new Despesa(0, 1, txt_nome_despesas.getText(), txt_data_despesas.getText(),
+				Despesa despesa = new Despesa(0, dadosrebidos.getId_usuario(), dadosrebidos.getNome_usuario(), txt_nome_despesas.getText(), txt_data_despesas.getText(),
 						txt_valor_despesas.getText());
 				con.inserirNovaDespesa(despesa);
 
 				Object[] listaColunas = { "ID Despesa", "Nome", "Data", "Despesa", "Valor" };
 				DefaultTableModel modelo = new DefaultTableModel(new Object[][] {}, listaColunas);
 
-				java.util.List<Despesa> despesas = con.buscarTodasDespesas();
+				java.util.List<Despesa> despesas = con.buscarDespesasUsuario(dadosrebidos.getId_usuario());
 				for (Despesa d : despesas) {
-					Object[] infoDespesa = { d.getId_despesa(), d.getId_usuario(), d.getNome_despesa(),
+					Object[] infoDespesa = { d.getId_despesa(), d.getNome_usuario(), d.getNome_despesa(),
 							d.getData_despesa(), d.getValor_despesa() };
 
 					modelo.addRow(infoDespesa);
@@ -184,8 +188,13 @@ public class TelaDespesas extends JFrame {
 		JButton btnNewButton = new JButton("New button");
 		panel.add(btnNewButton);
 		
-		JButton btnNewButton_3 = new JButton("New button");
-		panel.add(btnNewButton_3);
+		JButton bnt_sair_despesa = new JButton("Sair");
+		bnt_sair_despesa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		panel.add(bnt_sair_despesa);
 
 	}
 }

@@ -167,7 +167,7 @@ public class Conexao {
 
 			while (rs.next()) {
 				Despesa despesa = new Despesa(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4),
-						rs.getString(5));
+						rs.getString(5), rs.getString(6));
 
 				despesas.add(despesa);
 			}
@@ -182,18 +182,20 @@ public class Conexao {
 
 	public List<Despesa> buscarDespesasUsuario(int id_usuario) {
 
+
 		List<Despesa> despesas = new ArrayList<Despesa>();
 		conectar();
 
 		try {
 			// SELECT * FROM usuarios
-			pst = con.prepareStatement("SELECT * FROM controlefinanceiro.despesas WHERE id_usuario ?");
+			pst = con.prepareStatement("SELECT despesas.id_despesa, despesas.id_usuario, usuarios.nome_usuario, despesas.data_despesa, despesas.nome_despesa, despesas.valor_despesa FROM controlefinanceiro.despesas\r\n"
+					+ " INNER JOIN usuarios ON usuarios.id_usuario = despesas.id_usuario WHERE despesas.id_usuario = ?;");
 			pst.setInt(1, id_usuario);
 			rs = pst.executeQuery();
 
 			if (rs.next()) {
 				Despesa despesa = new Despesa(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4),
-						rs.getString(5));
+						rs.getString(5), rs.getString(6));
 
 				despesas.add(despesa);
 			}
@@ -205,18 +207,21 @@ public class Conexao {
 		desconectar();
 		return despesas;
 	}
+	
 
-	public List<Receita> buscarTodasReceitas() {
+	public List<Receita> buscarReceitasUsuario(int id_usuario) {
+
 		List<Receita> receitas = new ArrayList<Receita>();
 		conectar();
 
 		try {
-			// SELECT * FROM receitas
-			st = con.createStatement();
 
-			rs = st.executeQuery("SELECT * FROM receitas");
+			pst = con.prepareStatement("SELECT receitas.id_receita, receitas.id_usuario, usuarios.nome_usuario, receitas.data_receita, receitas.nome_receita,"
+					+ " receitas.valor_receita FROM controlefinanceiro.receitas INNER JOIN usuarios ON usuarios.id_usuario = receitas.id_usuario WHERE receitas.id_usuario = ?;");
+			pst.setInt(1, id_usuario);
+			rs = pst.executeQuery();
 
-			while (rs.next()) {
+			if (rs.next()) {
 				Receita receita = new Receita(rs.getInt(1), // id_receita
 						rs.getInt(2), // id_usuario
 						rs.getString(3), //nome_usuario

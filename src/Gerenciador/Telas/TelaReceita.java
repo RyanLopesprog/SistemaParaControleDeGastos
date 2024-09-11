@@ -108,18 +108,19 @@ public class TelaReceita extends JFrame {
 		table_receita = new JTable();
 		
 		
-		Object[] listaColunas = { "ID Receita", "Nome",  "Receita","Data", "Valor"};
+		Object[] listaColunas = { "ID Receita", "Nome", "Receita", "Data", "Valor"};
 		DefaultTableModel modelo = new DefaultTableModel(
 		    new Object[][] {
 		    },
+		   
 		    listaColunas
 		);
 
-		java.util.List<Receita> receitas = con.buscarTodasReceitas();
+		java.util.List<Receita> receitas = con.buscarReceitasUsuario(dadosrecebidos.getId_usuario());
 		for (Receita r : receitas) {
 		    Object[] infoReceita = {
 		        r.getId_receita(),
-		        r.getId_usuario(),
+		        r.getNome_usuario(),
 		        r.getData_receita(),
 		        r.getNome_receita(),
 		        r.getValor_receita()
@@ -173,17 +174,18 @@ public class TelaReceita extends JFrame {
 		btn_adicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				Receita receita = new Receita(0,dadosrecebidos.getId_usuario(), dadosrecebidos.getNome_usuario(), txt_nome_receita.getText(), txt_data_receita.getText(),  txt_valor_receita.getText());
+				Receita receita = new Receita(0, dadosrecebidos.getId_usuario(), dadosrecebidos.getNome_usuario(), txt_nome_receita.getText(), 
+						txt_data_receita.getText(),  txt_valor_receita.getText());
 				con.inserirNovaReceita(receita);
 				
-				Object[] listaColunas = { "ID Receita", "Nome", "Data", "Receita", "Valor"};
+				Object[] listaColunas = {"ID Receita", "Nome", "Receita","Data", "Valor"};
 				DefaultTableModel modelo = new DefaultTableModel(
 				    new Object[][] {
 				    },
 				    listaColunas
 				);
 
-				java.util.List<Receita> receitas = con.buscarTodasReceitas();
+				java.util.List<Receita> receitas = con.buscarReceitasUsuario(dadosrecebidos.getId_usuario());
 				for (Receita r : receitas) {
 				    Object[] infoReceita = {
 				        r.getId_receita(),
